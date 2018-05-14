@@ -9,8 +9,20 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => res.send('okay'));
+// routes
+const userRoutes = require('./routes/users');
 
+// CORS Middleware
+app.use(cors());
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Body Parser Middleware
+app.use(bodyParser.json());
+
+// route middleware
+app.use('/users', userRoutes);
+
+// start server
 app.listen(port, ()=>console.log('listening on port ' + port));
-
-
