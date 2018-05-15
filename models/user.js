@@ -27,7 +27,9 @@ const User = mongoose.model('User', userSchema);
 
 User.addUser = (user, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
+        if (err) throw err;
         bcrypt.hash(user.password, salt, (err, hash) =>{
+            if (err) throw err;
             user.password = hash;
             console.log('hashed: ' + hash);
             user.save(callback);
