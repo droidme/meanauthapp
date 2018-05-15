@@ -1,13 +1,35 @@
 const express = require('express');
 const router = express.Router();
 
-// Register
-router.get('/register', (req, res, next) => {
-    res.send('REGISTER');
+const User = require('../models/user');
+
+// Register User
+router.post('/register', (request, response, next) => {
+    let user = new User({
+        name: request.body.name,
+        email: request.body.email,
+        username: request.body.username,
+        password: request.body.password
+    })
+    
+    User.addUser(user, (error, saved) => {
+        if (error) {
+            response
+                .status(403)
+                .json({
+                    user: user,
+                    error: 'Failed to register user - ' + error
+                });
+        } else {
+            response
+                .status(200)
+                .json(saved);
+        }
+    })
 });
 
 // Authenticate
-router.get('/authenticate', (req, res, next) => {
+router.post('/authenticate', (req, res, next) => {
     res.send('AUTHENTICATE');
 });
 
