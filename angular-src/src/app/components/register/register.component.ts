@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidationService } from '../../services/validation.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-register',
@@ -8,35 +8,25 @@ import { ValidationService } from '../../services/validation.service';
 })
 export class RegisterComponent implements OnInit {
 
-  name: String;
-  username: String;
-  email: String;
-  pwd: String;
+  user: User;
  
-  constructor(private validationService: ValidationService) { }
+  constructor() { 
+  }
 
   ngOnInit() {
+    this.user = new User();
   }
 
   onSubmit() {
-    const user = {
-      name: this.name,
-      username: this.username,
-      email: this.email,
-      password: this.pwd
-    }
-
-    if (!this.validationService.validateRegisterUser(user)) {
-      console.log('User not valid');
+    if (!this.user.isValid) {
+      console.log('User is valid.');
     } else {
-      console.log('User is valid');
+      console.log('User is invalid');
     }
 
-    if (!this.validationService.validateEmail(user.email)) {
-      console.log('invalid email');
+    if (!this.user.hasValidEmail) {
+      console.log('invalid email address');
     }
-
-
   }
 
 }
