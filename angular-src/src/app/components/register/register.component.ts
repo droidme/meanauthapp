@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ export class RegisterComponent implements OnInit {
 
   user: User;
  
-  constructor() { 
+  constructor(private toastr: ToastrService) { 
   }
 
   ngOnInit() {
@@ -19,13 +20,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (!this.user.isValid) {
-      console.log('User is valid.');
+      this.toastr.info('User is valid.');
     } else {
-      console.log('User is invalid');
+      this.toastr.error('User is invalid');
     }
 
     if (!this.user.hasValidEmail) {
-      console.log('invalid email address');
+      this.toastr.error('invalid email address');
     }
   }
 
