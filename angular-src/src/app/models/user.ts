@@ -8,12 +8,11 @@ export class User {
         Object.assign(this, init);
     }
 
-    get isValid():boolean {
-        console.log("is valid: ", this)
-        return (this.name != undefined 
-            && this.username != undefined 
-            && this.email != undefined
-            && this.password != undefined);
+    get isValid(): boolean {
+         return (this.name && this.name.length > 0) 
+            && (this.username && this.username.length > 0)
+            && (this.email && this.email.length > 0)
+            && (this.password && this.password.length > 0);
     }
 
     get hasValidEmail(): boolean {

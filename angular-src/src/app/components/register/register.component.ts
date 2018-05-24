@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.user.isValid) {
+    if (this.user.isValid) {
       this.toastr.info('User is valid.');
     } else {
       this.toastr.error('User is invalid');
